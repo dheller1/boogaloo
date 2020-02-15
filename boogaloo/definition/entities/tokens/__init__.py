@@ -1,2 +1,2 @@
-from .tokenset import TokenSet
+from .tokentype import TokenType
 from .tokencollection import TokenCollection
