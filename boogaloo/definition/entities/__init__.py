@@ -1,1 +1,1 @@
-from .entity import GameEntity
+from .entitydefinition import EntityDefinition

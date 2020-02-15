@@ -1,7 +1,7 @@
-from boogaloo.definition.entities import GameEntity
+from boogaloo.definition.entities import EntityDefinition
 
 
-class CardType(GameEntity):
+class CardType(EntityDefinition):
     """ A CardType is an abstract definition of multiple cards which belong together. Often they have the same flipside
     are initially shuffled into the same stacks, but are then distributed among the game and the players.
     Collections of cards, which are concrete containers with specific meanings in the game (e.g. a player hand or

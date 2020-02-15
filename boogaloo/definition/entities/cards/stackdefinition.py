@@ -1,7 +1,7 @@
-from boogaloo.definition.entities.cards import CardCollection
+from boogaloo.definition.entities.cards import CollectionDefinition
 
 
-class StackOfCards(CardCollection):
+class StackDefinition(CollectionDefinition):
     """ A stack of cards is a collection of cards which are usually placed on top of each other.
     It is often a draw or discard pile, and can be face-up or face-down.
     :param supported_card_types: list of card types that can be contained
