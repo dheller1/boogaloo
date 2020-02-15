@@ -1,4 +1,4 @@
-from boogaloo.entities import GameEntity
+from boogaloo.definition.entities import GameEntity
 
 
 class TokenSet(GameEntity):

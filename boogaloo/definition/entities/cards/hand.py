@@ -1,4 +1,4 @@
-from boogaloo.entities.cards import CardCollection
+from boogaloo.definition.entities.cards import CardCollection
 
 
 class HandOfCards(CardCollection):

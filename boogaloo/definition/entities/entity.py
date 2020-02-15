@@ -1,4 +1,4 @@
-from boogaloo.entities.visibility import Visibility
+from boogaloo.definition.entities.visibility import Visibility
 
 
 class GameEntity:

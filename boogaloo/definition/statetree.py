@@ -1,4 +1,4 @@
-from .node import RootNode
+from boogaloo.core.node import RootNode
 
 
 class StateTreeDefinition:
