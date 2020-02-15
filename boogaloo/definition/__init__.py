@@ -3,5 +3,7 @@ their relations. Instances of these classes describe the general ruleset of a ga
 objects _in_ a specific game yet.
 
 Users should facilitate this module to define how their game works, then create a concrete game session from it
-which instantiates all required objects according to the defined ruleset.
+(using the `session_factory` module) which instantiates all required objects according to the defined ruleset.
 """
+
+# Module must not depend on: session
