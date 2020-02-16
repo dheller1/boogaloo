@@ -7,7 +7,7 @@ class InstanceBuilder:
     InstanceBuilder subclasses specify their source and target types, and should then implement the _create() method
     to instantiate a target object from a given source/definition object. """
     def __init__(self, sourcetype, targettype):
-        assert isinstance(targettype, Entity)
+        assert issubclass(targettype, Entity)
         self.sourcetype = sourcetype
         self.targettype = targettype
 
