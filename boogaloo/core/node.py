@@ -23,6 +23,12 @@ class Node:
                 return True
         return False
 
+    def __iter__(self):
+        yield self
+        for child in self._children:
+            for node in child:
+                yield node
+
 
 class RootNode(Node):
     """ Special node which is the root of the StateTree. Contains no entities itself.

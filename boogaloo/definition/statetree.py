@@ -13,3 +13,6 @@ class StateTreeDefinition:
 
     def add_per_player(self, name, entity):
         self.root.per_player.add_entity(name, entity)
+
+    def __iter__(self):
+        return (node for node in self.root)
