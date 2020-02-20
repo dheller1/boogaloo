@@ -40,7 +40,9 @@ class Factory:
 
         sess_node = Node(node_def.name, entity=sess_entity)
         self._register(node_def, sess_node)
-        sess_node.parent = self._find_session_parent(node_def)
+        parent = self._find_session_parent(node_def)
+        if parent is not None:
+            parent.add_node(sess_node)
 
     @staticmethod
     def build_players(count):

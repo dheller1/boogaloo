@@ -1,11 +1,13 @@
 class Node:
     """ Node in the StateTree which may or may not hold actual game entities.
-    Nodes without entities are often parents of other nodes which are grouped together. """
+    Nodes without entities are often parents of other nodes which are grouped together.
+    Nodes can only ever have a single parent, which is a read-only property. To attach a node
+    to a new parent, use `reparent()` or call `add_node()` on the parent node. """
     def __init__(self, name, entity=None):
-        self._parent = None
         self.name = name
         self.entity = entity
         self._children = list()
+        self._parent = None
 
     def __repr__(self):
         return f'Node({self.name}, Entity={self.entity})'
@@ -14,24 +16,26 @@ class Node:
     def parent(self):
         return self._parent
 
-    @parent.setter
-    def parent(self, value):
-        if value is self._parent:
+    # noinspection PyProtectedMember
+    def reparent(self, new_parent):
+        if new_parent is self._parent:
             return
         if self._parent is not None:
-            self._parent.remove_child(self)
+            self._parent._remove_child(self)
 
-        self._parent = value
-        self._parent.add_child(self)
+        self._parent = new_parent
+        self._parent._add_child(self)
 
     def add_node(self, node):
         assert not self.contains(node.name)
         assert node.parent in (None, self)
-        node.parent = self
-        self.add_child(node)
+        node.reparent(self)
 
-    def add_child(self, child):
+    def _add_child(self, child):
         self._children.append(child)
+
+    def _remove_child(self, child):
+        self._children.remove(child)
 
     def add_entity(self, name, entity):
         assert not self.contains(name)
@@ -42,9 +46,6 @@ class Node:
             if c.name == name:
                 return True
         return False
-
-    def remove_child(self, child):
-        self._children.remove(child)
 
     def __iter__(self):
         yield self
