@@ -36,7 +36,6 @@ class Factory:
             if not builder:
                 logging.error(f'No builder is defined for type {type(node_def.entity)}.')
                 return None
-
             sess_entity = builder.create(owner, node_def.entity)
 
         sess_node = Node(node_def.name, entity=sess_entity)

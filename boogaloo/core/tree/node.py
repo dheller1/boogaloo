@@ -1,12 +1,14 @@
 class Node:
     """ Node in the StateTree which may or may not hold actual game entities.
     Nodes without entities are often parents of other nodes which are grouped together. """
-    def __init__(self, name, parent=None, entity=None):
+    def __init__(self, name, entity=None):
         self._parent = None
         self.name = name
         self.entity = entity
-        self.parent = parent
         self._children = list()
+
+    def __repr__(self):
+        return f'Node({self.name}, Entity={self.entity})'
 
     @property
     def parent(self):
@@ -18,8 +20,9 @@ class Node:
             return
         if self._parent is not None:
             self._parent.remove_child(self)
-            self._parent = value
-            self._parent.add_child(self)
+
+        self._parent = value
+        self._parent.add_child(self)
 
     def add_node(self, node):
         assert not self.contains(node.name)
@@ -32,7 +35,7 @@ class Node:
 
     def add_entity(self, name, entity):
         assert not self.contains(name)
-        self.add_node(Node(name, self, entity))
+        self.add_node(Node(name, entity))
 
     def contains(self, name):
         for c in self._children:
@@ -58,22 +61,22 @@ class RootNode(Node):
     Players if each player should receive an instance of the entity.
     Globals and Players should always remain the first and second nodes in the list of children. """
     def __init__(self, tree):
-        super().__init__("Root", tree, entity=None)
-        self.globals = GlobalsNode(self)
-        self.per_player = PlayersNode(self)
-        self._children.append(self.globals)
-        self._children.append(self.per_player)
+        super().__init__('Root', entity=None)
+        self.globals = GlobalsNode()
+        self.per_player = PlayersNode()
+        self.add_node(self.globals)
+        self.add_node(self.per_player)
 
 
 class GlobalsNode(Node):
     """ Special node which contains all entities representing a global game state, i.e. they only exist once
     and not once for each player. """
-    def __init__(self, parent):
-        super().__init__("Globals", parent, entity=None)
+    def __init__(self):
+        super().__init__('Globals', entity=None)
 
 
 class PlayersNode(Node):
     """ Special node which contains one sub-node for each player in the game. When the game starts, all
     nodes/entities below this node will be instantiated N times, once for each player. """
-    def __init__(self, parent):
-        super().__init__("Players", parent, entity=None)
+    def __init__(self):
+        super().__init__('Players', entity=None)
