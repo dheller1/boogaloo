@@ -21,21 +21,13 @@ class Factory:
         self._register(tree_def, tree)  # register the tree as top-level session object
 
         game = GameActor()
-        players = list(Factory.build_players(num_players))
-
-        # build static nodes 'Root', 'Globals', and 'Players' for the session tree
-        self._build_node(game, tree_def.root)
-        self._build_node(game, tree_def.root.globals)
-        self._build_node(game, tree_def.root.per_player)
-
-        for node in tree_def.root.globals:
+        for node in tree_def:
             self._build_node(game, node)
+
+        players = list(Factory.build_players(num_players))
 
         print('SessionTree:')
         print([n for n in tree])
-
-        for node in tree_def.root.per_player:
-            pass
 
     def _build_node(self, owner, node_def):
         sess_entity = None

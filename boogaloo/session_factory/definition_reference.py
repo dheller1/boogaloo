@@ -8,5 +8,5 @@ class Reference:
     instance first only contains a reference to the definition object.
     In an additional step, after all entities have been instantiated, references between them are resolved. """
     def __init__(self, target):
-        assert isinstance(target, EntityDefinition)
+        assert target is None or isinstance(target, EntityDefinition)
         self.target = target

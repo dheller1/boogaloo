@@ -2,16 +2,33 @@ class Node:
     """ Node in the StateTree which may or may not hold actual game entities.
     Nodes without entities are often parents of other nodes which are grouped together. """
     def __init__(self, name, parent=None, entity=None):
+        self._parent = None
         self.name = name
         self.entity = entity
         self.parent = parent
         self._children = list()
 
+    @property
+    def parent(self):
+        return self._parent
+
+    @parent.setter
+    def parent(self, value):
+        if value is self._parent:
+            return
+        if self._parent is not None:
+            self._parent.remove_child(self)
+            self._parent = value
+            self._parent.add_child(self)
+
     def add_node(self, node):
         assert not self.contains(node.name)
         assert node.parent in (None, self)
         node.parent = self
-        self._children.append(node)
+        self.add_child(node)
+
+    def add_child(self, child):
+        self._children.append(child)
 
     def add_entity(self, name, entity):
         assert not self.contains(name)
@@ -22,6 +39,9 @@ class Node:
             if c.name == name:
                 return True
         return False
+
+    def remove_child(self, child):
+        self._children.remove(child)
 
     def __iter__(self):
         yield self
