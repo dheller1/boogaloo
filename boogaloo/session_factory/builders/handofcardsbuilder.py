@@ -9,5 +9,5 @@ class HandOfCardsBuilder(InstanceBuilder):
         super().__init__(HandDefinition, HandOfCards)
 
     def _create(self, definition):
-        return HandOfCards(owner=None, supported_card_types=definition.supported_card_types,
+        return HandOfCards(supported_card_types=definition.supported_card_types,
                            size_limit=definition.size_limit, draw_from=Reference(definition.draw_from))
