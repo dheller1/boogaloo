@@ -6,7 +6,7 @@ class Node:
     def __init__(self, name, entity=None):
         self.name = name
         self.entity = entity
-        self._children = list()
+        self.children = list()
         self._parent = None
 
     def __repr__(self):
@@ -32,24 +32,24 @@ class Node:
         node.reparent(self)
 
     def _add_child(self, child):
-        self._children.append(child)
+        self.children.append(child)
 
     def _remove_child(self, child):
-        self._children.remove(child)
+        self.children.remove(child)
 
     def add_entity(self, name, entity):
         assert not self.contains(name)
         self.add_node(Node(name, entity))
 
     def contains(self, name):
-        for c in self._children:
+        for c in self.children:
             if c.name == name:
                 return True
         return False
 
     def __iter__(self):
         yield self
-        for child in self._children:
+        for child in self.children:
             for node in child:
                 yield node
 
