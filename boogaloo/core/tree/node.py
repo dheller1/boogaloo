@@ -1,5 +1,5 @@
 class Node:
-    """ Node in the StateTree which may or may not hold actual game entities.
+    """ Node in a which may or may not hold entities.
     Nodes without entities are often parents of other nodes which are grouped together.
     Nodes can only ever have a single parent, which is a read-only property. To attach a node
     to a new parent, use `reparent()` or call `add_node()` on the parent node. """
@@ -52,21 +52,6 @@ class Node:
         for child in self._children:
             for node in child:
                 yield node
-
-
-class RootNode(Node):
-    """ Special node which is the root of the StateTree. Contains no entities itself.
-    Its parent is the StateTree itself.
-    It contains two fixed children, the Globals node and the Players node.
-    Usually, all nodes will be a child of either one of them: Globals if they are unique in the game,
-    Players if each player should receive an instance of the entity.
-    Globals and Players should always remain the first and second nodes in the list of children. """
-    def __init__(self, tree):
-        super().__init__('Root', entity=None)
-        self.globals = GlobalsNode()
-        self.per_player = PlayersNode()
-        self.add_node(self.globals)
-        self.add_node(self.per_player)
 
 
 class GlobalsNode(Node):

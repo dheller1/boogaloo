@@ -17,14 +17,16 @@ class Factory:
         self._nodedict = {}  # maps definition nodes to the session nodes generated from them
 
     def build_tree(self, tree_def, num_players):
-        tree = SessionTree()
-        self._register(tree_def, tree)  # register the tree as top-level session object
+        players = list(Factory.build_players(num_players))
+
+        tree = SessionTree(players)
+        # register pre-built nodes
+        self._register(tree_def.root, tree.root)
+        self._register(tree_def.root.globals, tree.root.globals)
 
         game = GameActor()
-        for node in tree_def:
+        for node in tree_def.root.globals._children:
             self._build_node(game, node)
-
-        players = list(Factory.build_players(num_players))
 
         print('SessionTree:')
         print([n for n in tree])
