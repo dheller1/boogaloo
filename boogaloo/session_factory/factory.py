@@ -1,5 +1,5 @@
 from boogaloo.core.tree.node import Node
-from boogaloo.definition.entities.cards import HandDefinition
+from boogaloo.definition.entities.cards import HandDefinition, StackDefinition
 from boogaloo.session.actors.gameactor import GameActor
 from boogaloo.session.actors.player import Player
 from boogaloo.session.sessiontree import SessionTree
@@ -7,10 +7,13 @@ from boogaloo.session_factory.builders.handofcardsbuilder import HandOfCardsBuil
 
 import logging
 
+from boogaloo.session_factory.builders.stackofcardsbuilder import StackOfCardsBuilder
+
 
 class Factory:
     Builders = {
         HandDefinition: HandOfCardsBuilder(),
+        StackDefinition: StackOfCardsBuilder(),
     }
 
     def __init__(self):

@@ -9,4 +9,4 @@ class StackDefinition(CollectionDefinition):
     """
     def __init__(self, supported_card_types, refill_from=None):
         super().__init__(supported_card_types)
-        self.refills_from = refill_from
+        self.refill_from = refill_from
