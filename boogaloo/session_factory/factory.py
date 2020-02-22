@@ -25,7 +25,7 @@ class Factory:
         self._register(tree_def.root.globals, tree.root.globals)
 
         game = GameActor()
-        for node in tree_def.root.globals._children:
+        for node in tree_def.root.globals.children:
             self._build_node(game, node)
 
         print('SessionTree:')
