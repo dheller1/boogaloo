@@ -8,6 +8,7 @@ class Node:
         self.entity = entity
         self.children = list()
         self._parent = None
+        self.depth = 0
 
     def __repr__(self):
         return f'Node({self.name}, Entity={self.entity})'
@@ -25,6 +26,7 @@ class Node:
 
         self._parent = new_parent
         self._parent._add_child(self)
+        self.depth = self._parent.depth + 1
 
     def add_node(self, node):
         assert not self.contains(node.name)
