@@ -17,7 +17,7 @@ class SessionTreeRootNode(Node):
     def __init__(self, players):
         super().__init__('Root', entity=None)
         self.globals = Node('Globals')
-        self.player_nodes = { p: Node(p.name) for p in players }
+        self.player_nodes = {p: Node(p.name) for p in players}
         self.add_node(self.globals)
         for pn in self.player_nodes.values():
             self.add_node(pn)
