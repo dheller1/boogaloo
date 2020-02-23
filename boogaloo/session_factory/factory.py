@@ -1,20 +1,23 @@
 from boogaloo.core.tree import treeprinter
 from boogaloo.core.tree.node import Node
-from boogaloo.definition.entities.cards import HandDefinition, StackDefinition
+from boogaloo.definition.entities.cards import HandDefinition, StackDefinition, DisplayDefinition
+from boogaloo.definition.entities.tokens import TokenCollectionDefinition
 from boogaloo.session.actors.gameactor import GameActor
 from boogaloo.session.actors.player import Player
 from boogaloo.session.sessiontree import SessionTree
-from boogaloo.session_factory.builders.handofcardsbuilder import HandOfCardsBuilder
+from boogaloo.session_factory.builders import CardDisplayBuilder, HandOfCardsBuilder, StackOfCardsBuilder, \
+    TokenCollectionBuilder
 
 import logging
 
-from boogaloo.session_factory.builders.stackofcardsbuilder import StackOfCardsBuilder
 
 
 class Factory:
     Builders = {
         HandDefinition: HandOfCardsBuilder(),
         StackDefinition: StackOfCardsBuilder(),
+        TokenCollectionDefinition: TokenCollectionBuilder(),
+        DisplayDefinition: CardDisplayBuilder(),
     }
 
     def __init__(self):
@@ -71,7 +74,6 @@ class Factory:
         parent = self._find_session_parent(node_def, registry=playerdict)
         if parent is not None:
             parent.add_node(sess_node)
-
 
     @staticmethod
     def build_players(count):
