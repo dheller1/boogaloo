@@ -9,5 +9,6 @@ class CardType(EntityDefinition):
     Concrete cards (with their front-side and specific functionality) normally also specify which CardType they are
     associated with.
     """
-    def __init__(self):
+    def __init__(self, name):
         super().__init__()
+        self.name = name
