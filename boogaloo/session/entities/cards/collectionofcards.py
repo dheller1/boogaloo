@@ -8,3 +8,4 @@ class CollectionOfCards(Entity):
     def __init__(self, supported_card_types):
         super().__init__()
         self.supported_card_types = supported_card_types
+        self.cards = []
